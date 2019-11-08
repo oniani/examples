@@ -17,7 +17,9 @@ module = torch.jit.load(options.sample_file)
 images = list(module.parameters())[0]
 
 for index in range(options.dimension * options.dimension):
-    image = images[index].detach().cpu().reshape(28, 28).mul(255).to(torch.uint8)
+    image = (
+        images[index].detach().cpu().reshape(28, 28).mul(255).to(torch.uint8)
+    )
     array = image.numpy()
     axis = plt.subplot(options.dimension, options.dimension, 1 + index)
     plt.imshow(array, cmap="gray")
